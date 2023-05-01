@@ -1,7 +1,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./generateMarkdown");
-const shape = require("./shapes");
+const shapes = require("./shapes");
 //array of questions
 const questions = [
     {
