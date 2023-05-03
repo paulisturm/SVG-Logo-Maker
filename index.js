@@ -35,6 +35,7 @@ const questions = [
 // shape selection
 if (fileData.shape === Circle) {
   //put in a circle
+  shapes.circle
 } else if (fileData.shape === Triangle) {
   //put in a triangle
 } else {
@@ -56,8 +57,10 @@ function init() {
   .prompt(questions)
 
   .then((response) => {
-  
-   
+  //TODO check shape type use shape type to abstantiate shape
+  //TODO create SVG Object with Shape 
+//Render SVG
+   console.log(response)
    var fileData = generateMarkdown(response)
    console.log(fileData)
    writeToFile('SVG',fileData)
