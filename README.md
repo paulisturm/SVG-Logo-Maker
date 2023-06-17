@@ -5,4 +5,4 @@ This is a command line application that will let users create an SVG logo. Users
 ## Google Drive Link
 https://drive.google.com/file/d/1CF7jrOQG-Pz6fXpFqQAvbXZ6nC1eCg-h/view
 
-## Example
+
