@@ -1,8 +1,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const generateMarkdown = require("./generateMarkdown");
 const {circle,triangle,square} = require("./lib/shapes");
-const { error } = require("console");
+
 const svg = require("./lib/svg")
 //array of questions
 const questions = [
@@ -17,21 +16,18 @@ const questions = [
         name: "textColor",
       },
       {
-        type: "input",
+        type: "list",
         message: "Choose a Shape: Circle, Triangle, or Square",
-        choices: ["Circle", "Triangle", "Square"],
-        name: "shape",
+        choices: ["circle", "triangle", "square"],
+        name: "shapeType",
       },
       {
         type: "input",
-        message: "Enter the color you wish to use for your text",
+        message: "Enter the color you wish to use for your shape",
         name: "shapeColor",
       },
 ]
-// .then((answer) => {
-//   if (answers.text.length > 3) {
-    
-//   }
+
 
 function writeToFile(fileName, data) {
   try {
@@ -48,24 +44,40 @@ function init() {
   inquirer
   .prompt(questions)
 
-  .then((response) => {
+  .then(({text, textColor, shapeType, shapeColor}) => {
+    console.log(textColor);
+    let shape
   //TODO check shape type use shape type to abstantiate shape
-  if (response.shape === "Circle") {
-    //put in a circle
-    let mycircle = new circle()
-  } else if (response.shape === "Triangle") {
-    //put in a triangle
-    let mytriangle = new triangle()
-  } else {
-    let mysquare = new square()
+  // if (shapeType === "Circle") {
+  //   //put in a circle
+  //   let mycircle = new circle()
+  // } else if (shapeType === "Triangle") {
+  //   //put in a triangle
+  //   let mytriangle = new triangle()
+  // } else {
+  //   let mysquare = new square()
+  // }
+  switch (shapeType) {
+    case "circle":
+      shape = new circle()
+      break
+    case "square":
+      shape = new square()
+      break
+    default:
+      shape = new triangle()
+      break
   }
+  shape.setColor(shapeColor) 
   //TODO create SVG Object with Shape 
   let mysvg = new svg() 
+  mysvg.setText(text, textColor)
+  mysvg.setshape(shape, shapeColor)
 //Render SVG
-   console.log(response)
-   var fileData = generateMarkdown(response)
-   console.log(fileData)
-   writeToFile('SVG',fileData)
+  //  console.log(response)
+  //  var fileData = (response)
+  //  console.log(fileData)
+   writeToFile('logo.svg',mysvg.render())
   }
 );
 }
